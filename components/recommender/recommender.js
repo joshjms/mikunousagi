@@ -30,7 +30,6 @@ export default function Recommender() {
                 console.log(error.message);
                 return null;
             });
-        console.log(res);
         setRecManga(res);
     };
 

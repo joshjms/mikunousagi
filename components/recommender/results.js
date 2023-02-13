@@ -12,8 +12,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Results({ manga, rec }) {
-    if (manga) console.log(manga.genres);
-
     if (manga === null) {
         return null;
     }
