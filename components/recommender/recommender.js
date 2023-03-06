@@ -27,7 +27,6 @@ export default function Recommender() {
                 }
             })
             .catch((error) => {
-                console.log(error.message);
                 return null;
             });
         setRecManga(res);
@@ -38,18 +37,18 @@ export default function Recommender() {
             setRecManga(null);
             return;
         }
-        getRecommendations(manga.mal_id);
+        getRecommendations(manga.id);
     }, [manga]);
 
     const reshuffleButton =
         manga === null ? null : (
             <div
-                className="w-max mx-auto mt-3"
+                className="w-max mx-auto mt-3 text-sm"
                 onClick={() => {
-                    getRecommendations(manga.mal_id);
+                    getRecommendations(manga.id);
                 }}
             >
-                <div className="p-3 rounded-2xl bg-pink-500 text-white hover:bg-pink-600 cursor-pointer duration-300 ease-in-out font-bold">
+                <div className="px-3 py-2 rounded-lg border bg-white hover:bg-black hover:text-white cursor-pointer duration-300 ease-in-out">
                     Reshuffle
                 </div>
             </div>
@@ -59,12 +58,9 @@ export default function Recommender() {
         <>
             <div
                 id="#recommender"
-                className="bg-gray-800 overflow-hidden relative py-12 px-4 min-h-screen"
+                className="w-80 md:w-96 mx-auto overflow-hidden relative py-12 px-4 min-h-screen bg-gray-100"
             >
-                <h1 className="text-4xl text-center font-extrabold text-white mb-5">
-                    Enter a manga title
-                </h1>
-
+                <h1 className="text-3xl font-bold text-center mb-5">Usagi</h1>
                 <Search select={setManga} />
 
                 {reshuffleButton}

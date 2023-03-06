@@ -1,5 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Inter } from "@next/font/google";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,14 +19,14 @@ export default function Results({ manga, rec }) {
     }
 
     if (rec === null) {
-        return <CircularProgress />
+        return null;
     }
 
     return (
         <>
-            <div className="mt-10 w-[max(20rem,60%)] mx-auto flex flex-wrap justify-center gap-10">
-                <div className="w-60 flex flex-col items-center">
-                    <h3 className="text-3xl font-bold text-center text-white mb-5">
+            <div className="mt-10 w-64 md:w-80 mx-auto flex flex-wrap justify-center">
+                <div className="w-32 md:w-40 flex flex-col items-center">
+                    <h3 className="md:text-xl font-medium text-center mb-5">
                         If you like
                     </h3>
                     <Image
@@ -32,19 +34,17 @@ export default function Results({ manga, rec }) {
                         alt="manga_cover"
                         width="300"
                         height="450"
-                        className="w-[15rem] h-[22.5rem] object-cover object-center rounded-xl"
+                        className="w-[7.5rem] h-[11.25rem] object-cover object-center border rounded-lg"
                     />
-                    <h3 className="mt-3 text-3xl font-bold text-center text-white mb-5">
-                        {manga.title}
-                    </h3>
-                    <div className="flex justify-center gap-1 flex-wrap">
-                        {manga.genres.map((e, i) => (
-                            <p className="text-sm font-semibold px-3 py-1 bg-pink-500 text-white rounded-full" key={i}>{e}</p>
-                        ))}
-                    </div>
+                    <h3 className="mt-3 text-sm text-center mb-2">{manga.title}</h3>
+                    <a href={`https://myanimelist.net/manga/${manga.id}`} target="_blank">
+                        <div className="text-xs px-3 py-2 rounded-lg border bg-white hover:bg-black hover:text-white cursor-pointer duration-300 ease-in-out">
+                            <OpenInNewIcon fontSize="small" />
+                        </div>
+                    </a>
                 </div>
-                <div className="w-60 flex flex-col items-center">
-                    <h3 className="text-3xl font-bold text-center text-white mb-5">
+                <div className="w-32 md:w-40 flex flex-col items-center">
+                    <h3 className="md:text-xl font-medium text-center mb-5">
                         You might like
                     </h3>
                     <Image
@@ -52,16 +52,17 @@ export default function Results({ manga, rec }) {
                         alt="rec_cover"
                         width="300"
                         height="450"
-                        className="w-[15rem] h-[22.5rem] object-cover object-center rounded-xl"
+                        className="w-[7.5rem] h-[11.25rem] object-cover object-center border rounded-lg"
                     />
-                    <h3 className="mt-3 text-3xl font-bold text-center text-white mb-5">
+                    <h3 className="mt-3 text-sm text-center mb-2">
                         {rec.title}
                     </h3>
-                    <div className="flex justify-center gap-1 flex-wrap">
-                        {rec.genres.map((e, i) => (
-                            <p className="text-sm font-semibold px-3 py-1 bg-pink-500 text-white rounded-full" key={i}>{e}</p>
-                        ))}
-                    </div>
+
+                    <a href={`https://myanimelist.net/manga/${rec.id}`} target="_blank">
+                        <div className="text-xs px-3 py-2 rounded-lg border bg-white hover:bg-black hover:text-white cursor-pointer duration-300 ease-in-out">
+                            <OpenInNewIcon fontSize="small" />
+                        </div>
+                    </a>
                 </div>
             </div>
         </>

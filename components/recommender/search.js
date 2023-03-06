@@ -1,19 +1,12 @@
 import Image from "next/image";
-import { Inter } from "@next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
-
-import styles from "./search.module.css";
-
-import SearchIcon from "@mui/icons-material/Search";
-import CircularProgress from "@mui/material/CircularProgress";
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 export default function Search({ select }) {
     const [search, setSearch] = useState("");
-    const [searchResults, setSearchResults] = useState(null);
+    const [showResults, setShowResults] = useState(false);
+    const [searchResults, setSearchResults] = useState([]);
 
     const getSearchResults = async (title) => {
         const res = await axios
@@ -28,8 +21,7 @@ export default function Search({ select }) {
                 }
             })
             .catch((error) => {
-                console.log(error.message);
-                return null;
+                return [];
             });
         setSearchResults(res);
     };
@@ -40,27 +32,38 @@ export default function Search({ select }) {
         }
     }, [search]);
 
+    const timeoutRef = useRef(null);
+
+    function handleSearchFocus() {
+        clearTimeout(timeoutRef.current);
+    }
+
+    function handleBlur() {
+        timeoutRef.current = setTimeout(() => {
+            setShowResults(false);
+        }, 200);
+    }
+
     const searchList =
-        search.length === 0 ? null : searchResults === null ? (
-            <div className="bg-white mt-3 p-4 rounded-2xl absolute z-10 w-full">
-                <CircularProgress />
-            </div>
-        ) : searchResults.length === 0 ? (
-            <div className="bg-white mt-3 p-4 rounded-2xl absolute z-10 w-full">
-                <p className="font-medium">No results found.</p>
-            </div>
-        ) : (
-            <div className="bg-white mt-3 p-1 rounded-2xl absolute z-10 w-full">
+        search.length === 0 || showResults === false ? null : (
+            <div className="mt-1 rounded absolute w-full bg-white border" onClick={handleSearchFocus}>
                 {searchResults.map((e, i) => (
                     <div
-                        className="p-3 hover:bg-pink-500 hover:text-white cursor-pointer rounded-xl"
+                        className="cursor-pointer flex gap-5 items-center hover:bg-gray-100"
                         key={i}
                         onClick={() => {
                             select(e);
                             setSearch("");
                         }}
                     >
-                        <p className="font-medium">{e.title}</p>
+                        <Image
+                            src={e.image_url}
+                            width={100}
+                            height={100}
+                            className="h-12 w-12 object-cover rounded"
+                            alt="cover"
+                        />
+                        <p>{e.title}</p>
                     </div>
                 ))}
             </div>
@@ -68,25 +71,19 @@ export default function Search({ select }) {
 
     return (
         <>
-            <div className="w-80 mx-auto relative">
+            <div className="w-full relative">
                 <div
-                    className={`relative flex full bg-white py-1 px-2 rounded-full`}
+                    className={`relative flex py-1 px-2 rounded-full`}
                 >
                     <input
-                        tabIndex="0"
-                        className={`focus:outline-none ${styles["form-input"]} z-10 relative w-[calc(100%-2.5rem)] rounded-full px-3 font-semibold`}
+                        className="border py-2 px-3 focus:border-black ease-in-out duration-300 focus:outline-none rounded-lg w-full"
                         placeholder="Yuru Yuri"
-                        value={search}
                         onChange={(e) => {
                             setSearch(e.target.value);
+                            setShowResults(true);
                         }}
+                        onBlur={handleBlur}
                     ></input>
-                    <div className="relative z-10 w-10 h-10 rounded-full border border-pink-500 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white duration-300 ease-in-out cursor-pointer">
-                        <SearchIcon />
-                    </div>
-                    <div
-                        className={`absolute top-0 left-0 w-full h-full ${styles["searchbar"]} z-0 rounded-full duration-300`}
-                    ></div>
                 </div>
 
                 {searchList}
