@@ -37,7 +37,7 @@ export default function Results({ manga, rec }) {
                         className="w-[7.5rem] h-[11.25rem] object-cover object-center border rounded-lg"
                     />
                     <h3 className="mt-3 text-sm text-center mb-2">{manga.title}</h3>
-                    <a href={`https://myanimelist.net/manga/${manga.id}`} target="_blank">
+                    <a href={`https://myanimelist.net/manga/${manga.id}`} target="_blank" rel="noreferrer">
                         <div className="text-xs px-3 py-2 rounded-lg border bg-white hover:bg-black hover:text-white cursor-pointer duration-300 ease-in-out">
                             <OpenInNewIcon fontSize="small" />
                         </div>
@@ -58,7 +58,7 @@ export default function Results({ manga, rec }) {
                         {rec.title}
                     </h3>
 
-                    <a href={`https://myanimelist.net/manga/${rec.id}`} target="_blank">
+                    <a href={`https://myanimelist.net/manga/${rec.id}`} target="_blank" rel="noreferrer">
                         <div className="text-xs px-3 py-2 rounded-lg border bg-white hover:bg-black hover:text-white cursor-pointer duration-300 ease-in-out">
                             <OpenInNewIcon fontSize="small" />
                         </div>
