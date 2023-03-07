@@ -5,6 +5,10 @@
 
 As a serial manga enjoyer, I sometimes (read: often) realize that I have no more manga to read. Sure, there are some recommendations I can see online and from my friends, but they really are sometimes (read: often) either bad or famous enough for me to know beforehand. To give me the experience of "never running out of manga to read", I had a random idea in mind which results in this repository.
 
+![image](https://user-images.githubusercontent.com/83194022/223427774-f7b0675d-009e-4e05-9dc3-4ee18580b3e8.png)
+
+Finding a series you like by chance is truly a beautiful thing 💖.
+
 ### Demo
 
 I think the design is intuitive enough (hopefully). Just enter the title of the manga (English or Japanese Romanization) and you'll (hopefully) get what you want. 
